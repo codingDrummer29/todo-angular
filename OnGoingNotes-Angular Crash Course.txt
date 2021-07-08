@@ -1,0 +1,132 @@
+install angular cli on system
+    npm install -g @angular/cli
+create project
+    ng new project-name
+inside the project terminal
+    ng serve --open
+
+decorators:
+    it's mostly for the template which holds some properties
+    
+    @Component({
+        selector: 'app-root',
+        templateUrl: './app.component.html',
+        styleUrls: ['./app.component.css'],
+    })
+    
+    REVIEW:
+        selector: specifies the component where we'll inject
+        templateUrl: specifies the view-page
+        styleUrls: specifies the css file for that component
+
+app.component.ts
+    export class AppComponent {
+        // title = 'angular-crashy';
+        title = 'Angular Crash Course';
+        date = new Date();
+        name = 'Anubhab Here';
+
+        constructor() {
+            console.log('Constructor called');
+            this.doSomething('anubhab');
+        }
+
+        doSomething(val: string): void {
+            val = 'Do Something is working';
+        }
+    }
+app.component.html
+    data injection
+        <h4>{{ date }}</h4>
+        <span> {{ name }} </span>
+
+we removed everything from app.component.ts & added a ToDo app UI
+
+create a new ts file inside app> todo.ts
+    export interface Todo {
+        id: number;
+        value: string;
+        isDone: boolean;
+    }
+
+now inside the brain app.component.ts
+    #   import the interface that we've designed
+            import { Todo } from './todo';
+
+    #   design the component
+            export class AppComponent {
+                title = 'Angular Crash Course';
+
+                todoValue!: string;
+                list: Todo[] = [];
+
+                ngOnInit() {
+                    this.list = [];
+                    this.todoValue = '';
+                }
+            }
+        as we are not initializing the variables, this precautions are needed to be taken 
+        we must use 'Definite Assignment Assertion' to tell typescript that this variable will have a 
+        value at runtime
+
+        life-cycle methods are the methods that are being introduced in the mobile development first
+        to handle multiple states of the application like openning, about-to open, running, clossing,
+        about-to close, running in the background and many more.
+        web apps also tried to do the same for optimal UI/UX, hence there are these life-cycle hooks.
+        in Angular there are many. for example OnInit() get's performed when the component is about to be
+        loaded. 
+
+    #   adding items in the list
+            addItem() {
+                if (this.todoValue !== '') {
+                    const newItem: Todo = {
+                        id: Date.now(),
+                        value: this.todoValue,
+                        isDone: false,
+                    };
+                    // now new item is created so we need to store that
+                    this.list.push(newItem);
+                }
+                // now as the data is stored, clear the box
+                this.todoValue = '';
+            }
+
+    #   deleing the item
+            deleteItem(id: number) {
+                this.list = this.list.filter((item) => item.id !== id);
+            }
+
+now adding functionalities to the app.component.html    
+    #   add button
+            <button class="add-btn" (click)="addItem()">Add ToDo</button>
+
+    #   delete button
+            <button class="btn" (click)="deleteItem()" >Delete</button>
+
+    NOTE:
+        we should use FormModule here
+        so inside app.module.ts
+            import { FormsModule } from '@angular/forms';
+            imports: [
+                ...,
+                FormsModule,
+            ],
+
+    #   inside the input section for taking the item values
+            (keyup.enter)="addItem()"
+        keyup is an event that get's evoked when the enter key is pressed and up
+
+    #   now to store the data in the model, we need to use ngModel() here
+        inside the input tag of adding new todo item
+            [(ngModel)]="todoValue"
+
+    #   now to loop through every items
+            <li *ngFor="let item of list" >
+            <input 
+                type="checkbox" 
+                name="isDone" 
+                [(ngModel)]="item.isDone"
+            />
+            {{ item.value }}
+            <button class="btn" (click)="deleteItem(item.id)" >Delete</button>
+            </li>
