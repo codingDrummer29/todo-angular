@@ -2,6 +2,13 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.1.
 
+## Run this project
+
+Create a new project with Angular Cli cmd: ng new <app-name>
+Download the zip from here or generate a pull request
+Open terminal and run cmd: npm install
+Run the project after all packages gets installed with version compatibility with cmd: ng serve or npm start 
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
