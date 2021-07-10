@@ -4,10 +4,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Run this project
 
-Create a new project with Angular Cli cmd: ng new <app-name>
-Download the zip from here or generate a pull request
-Open terminal and run cmd: npm install
-Run the project after all packages gets installed with version compatibility with cmd: ng serve or npm start 
+Create a new project with Angular Cli cmd: `ng new <app-name>`, 
+Download the zip from here or generate a pull request, 
+Open terminal and run cmd: `npm install`, 
+Run the project after all packages gets installed with version compatibility with cmd: `ng serve` or `npm start` 
 
 ## Development server
 
